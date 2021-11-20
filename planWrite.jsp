@@ -39,7 +39,7 @@
 		<caption>일정등록</caption>
 			<tr>
 				<th width="20%">날짜</th>
-				<td width="80"><input type="text" name="pdate" style="width:98%"></td>
+				<td width="80"><input type="date" name="pdate" style="width:98%"></td>
 			</tr>
 			<tr>
 				<th>제목</th>

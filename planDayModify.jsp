@@ -12,15 +12,16 @@
 Connection conn;
 PreparedStatement pstmt;
 
-String dbURL = "jdbc:mysql://localhost:3306/student";
-String dbID = "root";
-String dbPassword = "1018pskc!!";
-Class.forName("com.mysql.jdbc.Driver");
-conn = DriverManager.getConnection(dbURL, dbID, dbPassword); 
+
+		String dbURL = "jdbc:mysql://localhost:3306/student";
+		String dbID = "root";
+		String dbPassword = "1018pskc!!";
+		Class.forName("com.mysql.jdbc.Driver");
+		conn = DriverManager.getConnection(dbURL, dbID, dbPassword); 
 
 String USERID = (String) session.getAttribute("userId");
-String pdate = (String) request.getParameter("pdate");
-if(pdate==null){
+String ddayname = (String) request.getParameter("ddayname");
+if(ddayname==null){
 %>
 	<script>
 		alert("잘못된 경로로의 접근1");
@@ -39,17 +40,17 @@ if(USERID ==null){
 	
 }
 
-String 	sql = "select title, content from plan";
-		sql += " where userid='" + USERID + "' and pdate='" + pdate + "'";
+String 	sql = "select ddayname, day from dday";
+		sql += " where userid='" + USERID + "' and ddayname='" + ddayname + "'";
 		pstmt = conn.prepareStatement(sql);
 ResultSet rs = pstmt.executeQuery(sql);
 
-String title = "";
-String content = "";
+String day = "";
+String dayname = "";
 
 if(rs.next()) {
-	title = rs.getString("title");
-	content = rs.getString("content");
+	day = rs.getString("day");
+	dayname = rs.getString("ddayname");
 } else{
 	%>
 	<script>
@@ -67,13 +68,15 @@ if(rs.next()) {
 <title>Insert title here</title>
 </head>
 <script>
-	function fn_modify() {
-		location = "planModify.jsp?pdate=<%=pdate %>";
+	function fn_ddaysubmit() {
+		var f = document.frm;
+		f.submit();
 	}
-	function fn_delete() {
+	function fn_ddaydelete() {
 		if(confirm("정말 삭제하시겠습니까?")){
-			location = "planDelete.jsp?pdate=<%=pdate %>";
+			location = "planDelete.jsp?ddayname=<%=ddayname %>";
 		}
+		
 	}
 </script>
 <style>
@@ -102,25 +105,23 @@ if(rs.next()) {
 	}
 </style>
 <body>
+<form name="frm" method="post" action="planDayModifySave.jsp">
+<input type="hidden" name="ddayname" value="<%=dayname%>">
 <table>
-	<caption>일정등록</caption>
+	<caption>디데이 수정</caption>
 		<tr>
-			<th width="20%">날짜</th>
-			<td width="80"><%=pdate %></td>
+			<th width="20%">디데이 명</th>
+			<td width="80"><input type="text" name="ddayname" id="ddayname" value="<%=dayname %>" style="width:98%"></td>
 		</tr>
 		<tr>
-			<th>제목</th>
-			<td><%=title %></td>
-		</tr>
-		<tr>
-			<th>내용</th>
-			<td height="120" valign="top"><%=content %></td>
+			<th>남은 일수</th>
+			<td><input type="date" name="date" style="width:98%"></td>
 		</tr>
 </table>
 <div class="div1">
-	<button type="button" onclick="fn_modify();">수정</button>
-	<button type="button" onclick="fn_delete();">삭제</button>
+	<button type="submit" onclick="fn_ddaysubmit(); return false;">저장</button>
 	<button type="button" onclick="self.close();">닫기</button>
 </div>
+</form>
 </body>
 </html>

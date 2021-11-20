@@ -1,3 +1,5 @@
+<%@page import="java.sql.Date"%>
+<%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.util.Calendar"%>
 <%@page import="java.sql.ResultSet"%>
 <%@page import="java.sql.DriverManager"%>
@@ -16,6 +18,7 @@ Class.forName("com.mysql.jdbc.Driver");
 conn = DriverManager.getConnection(dbURL, dbID, dbPassword); 	
 
 	String USERID = (String) session.getAttribute("userId");
+	
 	String yy = request.getParameter("year");
 	String mm = request.getParameter("month");
 
@@ -46,6 +49,32 @@ conn = DriverManager.getConnection(dbURL, dbID, dbPassword);
 		n_y = n_y + 1;
 		n_m = 1;
 	}
+	
+	String 	SQL = "select day, ddayname from dday";
+	SQL += " where userid='" + USERID + "'";
+	pstmt = conn.prepareStatement(SQL);
+	ResultSet rs = pstmt.executeQuery(SQL);
+
+String day = "";
+String ddayname = "";
+
+if(rs.next()) {
+day = rs.getString("day");
+ddayname = rs.getString("ddayname");
+}
+Calendar cal2 = Calendar.getInstance();
+cal2.setTime( new Date(System.currentTimeMillis()));
+String today = new SimpleDateFormat("yyyy-MM-dd").format( cal.getTime()); // 오늘날짜
+
+SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
+Date date = new Date(dateFormat.parse(day).getTime()); 
+Date todate = new Date(dateFormat.parse(today).getTime());
+    
+long calculate = date.getTime() - todate.getTime();
+
+int Ddays = (int) (calculate / ( 24*60*60*1000));
+
 %>
 <!DOCTYPE html>
 <html>
@@ -57,19 +86,31 @@ function fn_Write() {
 	var w = (window.screen.width/2)- 200;
 	var h = (window.screen.height/2)- 200;
 	var url = "planWrite.jsp";
-	window.open(url, "planWrite", "width=400, height=400, left="+w+", top="+h);
+	window.open(url, "planWrite", "width=500, height=500, left="+w+", top="+h);
 }
 function fn_View(){
 	var w = (window.screen.width/2)- 200;
 	var h = (window.screen.height/2)- 200;
 	var url = "planViewget.jsp";
-	window.open(url, "planViewget", "width=400, height=400, left="+w+", top="+h);
+	window.open(url, "planViewget", "width=500, height=500, left="+w+", top="+h);
 }
 function fn_defail(v){
 	var w = (window.screen.width/2)- 200;
 	var h = (window.screen.height/2)- 200;
 	var url = "planView.jsp?pdate="+v;
-	window.open(url,"planView", "width=400, height=400, left="+w+", top="+h);
+	window.open(url,"planView", "width=500, height=500, left="+w+", top="+h);
+}
+function fn_Day() {
+	var w = (window.screen.width/2)- 400;
+	var h = (window.screen.height/2)- 400;
+	var url = "planDayInput.jsp";
+	window.open(url, "planDayInput", "width=500, height=300, left="+w+", top="+h);
+}
+function fn_deDay(v){
+	var w = (window.screen.width/2)- 200;
+	var h = (window.screen.height/2)- 200;
+	var url = "planDayView.jsp?ddayname="+v;
+	window.open(url, "planDayDelete", "width=500, height=300, left="+w+", top="+h);
 }
 </script>
 </head>
@@ -112,11 +153,14 @@ function fn_defail(v){
 	<br><br><br><br><br><br><br><br>
 	<table width="500px" align="center">
 		<tr>
-    	<td><button type="button" onclick="location='planList.jsp?year=<%=b_y %>&month=<%=b_m %>'"> 이전 </button></td>
-    	<td><%=y %>년 <%=m + 1%>월</td>
-    	<td><button type="button" onclick="location='planList.jsp?year=<%=n_y %>&month=<%=n_m %>'"> 다음 </button></td>
-    	<td><input type="button" value="일정등록" onclick="fn_Write()"></td>
+    		<td><button type="button" onclick="location='planList.jsp?year=<%=b_y %>&month=<%=b_m %>'"> 이전 </button></td>
+    		<td><%=y %>년 <%=m + 1%>월</td>
+    		<td><button type="button" onclick="location='planList.jsp?year=<%=n_y %>&month=<%=n_m %>'"> 다음 </button></td>
+    		<td><input type="button" value="일정등록" onclick="fn_Write()">&ensp;<input type="button" value="디데이" onclick="fn_Day()"></td>
     	</tr>
+    		<tr>
+    			<td colspan="4"><a href="javascript:fn_deDay('<%=ddayname %>')"><%=ddayname %></a> - <%=Ddays-20 %></td>
+    		</tr>
 	</table>
     <table width="500px" align="center">
     	<tr>

@@ -70,16 +70,6 @@ if(rs.next()) {
 <script>
 	function fn_submit() {
 		var f = document.frm;
-		/*if(f.pdate.value == ""){
-			alert("날짜를 입력해주세요.");
-			f.date.focus();
-			return false;
-		}
-		if(f.title.value == ""){
-			alert("제목을 입력해주세요.");
-			f.title.focus();
-			return false;
-		}*/
 		f.submit();
 		
 	}
@@ -125,7 +115,7 @@ if(rs.next()) {
 	<caption>일정수정</caption>
 		<tr>
 			<th width="20%">날짜</th>
-			<td width="80"><input type="text" name="pdate" id="pdate" value="<%=pdate %>" style="width:98%"></td>
+			<td width="80"><input type="date" name="pdate" id="pdate" value="<%=pdate %>" style="width:98%"></td>
 		</tr>
 		<tr>
 			<th>제목</th>

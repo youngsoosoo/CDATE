@@ -1,3 +1,6 @@
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="java.util.Date"%>
+<%@page import="java.util.Calendar"%>
 <%@page import="java.sql.DriverManager"%>
 <%@page import="java.sql.Connection"%>
 <%@page import="java.sql.PreparedStatement"%>
@@ -19,8 +22,8 @@ Class.forName("com.mysql.jdbc.Driver");
 conn = DriverManager.getConnection(dbURL, dbID, dbPassword); 
 
 String USERID = (String) session.getAttribute("userId");
-String pdate = (String) request.getParameter("pdate");
-if(pdate==null){
+String ddayname = (String) request.getParameter("ddayname");
+if(ddayname==null){
 %>
 	<script>
 		alert("잘못된 경로로의 접근1");
@@ -39,17 +42,17 @@ if(USERID ==null){
 	
 }
 
-String 	sql = "select title, content from plan";
-		sql += " where userid='" + USERID + "' and pdate='" + pdate + "'";
+String 	sql = "select ddayname, day from dday";
+		sql += " where userid='" + USERID + "' and ddayname='" + ddayname + "'";
 		pstmt = conn.prepareStatement(sql);
-ResultSet rs = pstmt.executeQuery(sql);
+		ResultSet rs = pstmt.executeQuery(sql);
 
-String title = "";
-String content = "";
+	String dayname = "";
+	String dday = "";
 
 if(rs.next()) {
-	title = rs.getString("title");
-	content = rs.getString("content");
+	dayname = rs.getString("ddayname");
+	dday = rs.getString("day");
 } else{
 	%>
 	<script>
@@ -59,6 +62,20 @@ if(rs.next()) {
 <%
 	return;
 }
+
+Calendar cal = Calendar.getInstance();
+cal.setTime( new Date(System.currentTimeMillis()));
+String today = new SimpleDateFormat("yyyy-MM-dd").format( cal.getTime()); // 오늘날짜
+
+SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
+Date date = new Date(dateFormat.parse(dday).getTime()); 
+Date todate = new Date(dateFormat.parse(today).getTime());
+    
+long calculate = date.getTime() - todate.getTime();
+
+int Ddays = (int) (calculate / ( 24*60*60*1000));
+
 %>
 <!DOCTYPE html>
 <html>
@@ -67,12 +84,12 @@ if(rs.next()) {
 <title>Insert title here</title>
 </head>
 <script>
-	function fn_modify() {
-		location = "planModify.jsp?pdate=<%=pdate %>";
+	function fn_ddaymodify() {
+		location = "planDayModify.jsp?ddayname=<%=ddayname %>";
 	}
-	function fn_delete() {
+	function fn_ddaydelete() {
 		if(confirm("정말 삭제하시겠습니까?")){
-			location = "planDelete.jsp?pdate=<%=pdate %>";
+			location = "DayDelete.jsp?ddayname=<%=ddayname %>";
 		}
 	}
 </script>
@@ -103,23 +120,19 @@ if(rs.next()) {
 </style>
 <body>
 <table>
-	<caption>일정등록</caption>
+	<caption>디데이</caption>
 		<tr>
-			<th width="20%">날짜</th>
-			<td width="80"><%=pdate %></td>
+			<th>디데이 명</th>
+			<td><%=dayname %></td>
 		</tr>
 		<tr>
-			<th>제목</th>
-			<td><%=title %></td>
-		</tr>
-		<tr>
-			<th>내용</th>
-			<td height="120" valign="top"><%=content %></td>
+			<th>남은 일수</th>
+			<td valign="top"><%=Ddays %></td>
 		</tr>
 </table>
 <div class="div1">
-	<button type="button" onclick="fn_modify();">수정</button>
-	<button type="button" onclick="fn_delete();">삭제</button>
+	<button type="button" onclick="fn_ddaymodify();">수정</button>
+	<button type="button" onclick="fn_ddaydelete();">삭제</button>
 	<button type="button" onclick="self.close();">닫기</button>
 </div>
 </body>
