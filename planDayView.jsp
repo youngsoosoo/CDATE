@@ -89,7 +89,7 @@ int Ddays = (int) (calculate / ( 24*60*60*1000));
 	}
 	function fn_ddaydelete() {
 		if(confirm("정말 삭제하시겠습니까?")){
-			location = "DayDelete.jsp?ddayname=<%=ddayname %>";
+			location = "planDayDelete.jsp?ddayname=<%=ddayname %>";
 		}
 	}
 </script>

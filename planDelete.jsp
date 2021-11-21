@@ -16,6 +16,7 @@ PreparedStatement pstmt;
 
 String USERID = (String) session.getAttribute("userId");
 String pdate = request.getParameter("pdate");
+
 if(pdate==null){
 %>
 	<script>
@@ -29,16 +30,12 @@ if(pdate==null){
 String sql = "DELETE FROM plan WHERE userid='" + USERID +"' AND pdate='" + pdate + "' ";
 pstmt = conn.prepareStatement(sql);
 int result = pstmt.executeUpdate(sql);
-if(result == 1){
 %>
 	<script>
 		alert("삭제 성공");
 		self.close();
 		opener.document.location="planList.jsp";
 	</script>
-<%
-}
-%>
 <!DOCTYPE html>
 <html>
 <head>

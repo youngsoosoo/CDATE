@@ -54,16 +54,18 @@ conn = DriverManager.getConnection(dbURL, dbID, dbPassword);
 	SQL += " where userid='" + USERID + "'";
 	pstmt = conn.prepareStatement(SQL);
 	ResultSet rs = pstmt.executeQuery(SQL);
-
-String day = "";
+	String today1 = new SimpleDateFormat("yyyy-MM-dd").format( cal.getTime());
+	
+String day = "2021-11-22";
 String ddayname = "";
 
 if(rs.next()) {
-day = rs.getString("day");
-ddayname = rs.getString("ddayname");
+	day = rs.getString("day");
+	ddayname = rs.getString("ddayname");
 }
-Calendar cal2 = Calendar.getInstance();
-cal2.setTime( new Date(System.currentTimeMillis()));
+
+Calendar cal1 = Calendar.getInstance();
+cal1.setTime( new Date(System.currentTimeMillis()));
 String today = new SimpleDateFormat("yyyy-MM-dd").format( cal.getTime()); // 오늘날짜
 
 SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -74,8 +76,8 @@ Date todate = new Date(dateFormat.parse(today).getTime());
 long calculate = date.getTime() - todate.getTime();
 
 int Ddays = (int) (calculate / ( 24*60*60*1000));
-
 %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -150,7 +152,7 @@ function fn_deDay(v){
 </style>
 <body>
 	<jsp:include page="/Header1.jsp" flush="false"/>
-	<br><br><br><br><br><br><br><br>
+	<br><br><br><br><br><br><br><br>	
 	<table width="500px" align="center">
 		<tr>
     		<td><button type="button" onclick="location='planList.jsp?year=<%=b_y %>&month=<%=b_m %>'"> 이전 </button></td>
@@ -159,7 +161,16 @@ function fn_deDay(v){
     		<td><input type="button" value="일정등록" onclick="fn_Write()">&ensp;<input type="button" value="디데이" onclick="fn_Day()"></td>
     	</tr>
     		<tr>
-    			<td colspan="4"><a href="javascript:fn_deDay('<%=ddayname %>')"><%=ddayname %></a> - <%=Ddays-20 %></td>
+    			<%
+    				if(ddayname == ""){
+    			%>
+    			<%	
+    				}else{
+    			%>
+    					<td colspan="4"><a href="javascript:fn_deDay('<%=ddayname %>')"><%=ddayname %></a> - <%=Ddays-21 %></td>    			
+    			<%
+    				}
+    			%>
     		</tr>
 	</table>
     <table width="500px" align="center">

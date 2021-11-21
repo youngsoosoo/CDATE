@@ -10,7 +10,7 @@
 <%@ page import="plan.planDTO"%>
 <%
 Connection conn;
-PreparedStatement pstmt;
+PreparedStatement pstmt = null;
 
 
 		String dbURL = "jdbc:mysql://localhost:3306/student";
@@ -71,12 +71,6 @@ if(rs.next()) {
 	function fn_ddaysubmit() {
 		var f = document.frm;
 		f.submit();
-	}
-	function fn_ddaydelete() {
-		if(confirm("정말 삭제하시겠습니까?")){
-			location = "planDelete.jsp?ddayname=<%=ddayname %>";
-		}
-		
 	}
 </script>
 <style>

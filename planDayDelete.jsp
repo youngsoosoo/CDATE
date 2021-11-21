@@ -16,17 +16,18 @@ PreparedStatement pstmt;
 
 String USERID = (String) session.getAttribute("userId");
 String ddayname = request.getParameter("ddayname");
+
 if(ddayname==null){
 %>
 	<script>
-		alert("잘못된 경로로의 접근1");
+		alert("디데이가 없습니다.");
 		self.close();
 	</script>
 <%
 	return;
 }
 
-String sql = "DELETE FROM dday WHERE userid='" + USERID +"' AND ddayname='" + ddayname + "' ";
+String sql = "DELETE FROM dday WHERE userid='" + USERID +"' AND ddayname='"+ddayname+"' ";
 pstmt = conn.prepareStatement(sql);
 int result = pstmt.executeUpdate(sql);
 if(result == 1){
