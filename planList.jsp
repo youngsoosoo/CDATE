@@ -56,7 +56,7 @@ conn = DriverManager.getConnection(dbURL, dbID, dbPassword);
 	ResultSet rs = pstmt.executeQuery(SQL);
 	String today1 = new SimpleDateFormat("yyyy-MM-dd").format( cal.getTime());
 	
-String day = "2021-11-22";
+String day = "";
 String ddayname = "";
 
 if(rs.next()) {
@@ -64,8 +64,8 @@ if(rs.next()) {
 	ddayname = rs.getString("ddayname");
 }
 
-Calendar cal1 = Calendar.getInstance();
-cal1.setTime( new Date(System.currentTimeMillis()));
+
+cal.setTime( new Date(System.currentTimeMillis()));
 String today = new SimpleDateFormat("yyyy-MM-dd").format( cal.getTime()); // 오늘날짜
 
 SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -73,7 +73,7 @@ SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 Date date = new Date(dateFormat.parse(day).getTime()); 
 Date todate = new Date(dateFormat.parse(today).getTime());
     
-long calculate = date.getTime() - todate.getTime();
+long calculate = (long) (date.getTime() - todate.getTime());
 
 int Ddays = (int) (calculate / ( 24*60*60*1000));
 %>
@@ -153,25 +153,25 @@ function fn_deDay(v){
 <body>
 	<jsp:include page="/Header1.jsp" flush="false"/>
 	<br><br><br><br><br><br><br><br>	
-	<table width="500px" align="center">
+	<table width="500px" align="center" border="0">
 		<tr>
-    		<td><button type="button" onclick="location='planList.jsp?year=<%=b_y %>&month=<%=b_m %>'"> 이전 </button></td>
+    		<td style=""><button type="button" onclick="location='planList.jsp?year=<%=b_y %>&month=<%=b_m %>'"> 이전 </button></td>
     		<td><%=y %>년 <%=m + 1%>월</td>
     		<td><button type="button" onclick="location='planList.jsp?year=<%=n_y %>&month=<%=n_m %>'"> 다음 </button></td>
     		<td><input type="button" value="일정등록" onclick="fn_Write()">&ensp;<input type="button" value="디데이" onclick="fn_Day()"></td>
     	</tr>
-    		<tr>
     			<%
     				if(ddayname == ""){
     			%>
     			<%	
     				}else{
     			%>
-    					<td colspan="4"><a href="javascript:fn_deDay('<%=ddayname %>')"><%=ddayname %></a> - <%=Ddays-21 %></td>    			
+    				<tr>
+    					<td colspan="4"><a href="javascript:fn_deDay('<%=ddayname %>')"><%=ddayname %></a> - <%=Ddays%></td>
+    				</tr>    			
     			<%
     				}
     			%>
-    		</tr>
 	</table>
     <table width="500px" align="center">
     	<tr>

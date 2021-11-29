@@ -37,6 +37,9 @@ if(result == 1){
 		self.close();
 		opener.document.location="planList.jsp";
 	</script>
+<%
+}
+%>
 <!DOCTYPE html>
 <html>
 <head>
