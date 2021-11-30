@@ -17,6 +17,17 @@
 .category .ico_coffee {background-position:-10px 0;}  
 .category .ico_store {background-position:-10px -36px;}   
 .category .ico_carpark {background-position:-10px -72px;} 
+
+.customoverlay {position:relative;bottom:100px;border-radius:6px;border: 1px solid #ccc;border-bottom:2px solid #ddd;float:left;}
+.customoverlay:nth-of-type(n) {border:0; box-shadow:0px 1px 2px #888;}
+.customoverlay a {display:block;text-decoration:none;color:#000;text-align:center;border-radius:6px;font-size:14px;font-weight:bold;overflow:hidden;background: #d95050;background: #d95050 }
+.customoverlay .title {display:block;text-align:center;background:#fff;margin-right:35px;padding:10px 15px;font-size:14px;font-weight:bold;}
+.customoverlay:after {content:'';position:absolute;margin-left:-12px;left:50%;bottom:-12px;width:22px;height:12px;background:url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/vertex_white.png')}
+.body {position: relative;overflow: hidden;background: white;}
+.desc {position: relative;margin: 13px 0 0 90px;height: 75px;}
+.img {position: absolute;top: 6px;left: 5px;width: 73px;height: 71px;border: 1px solid #ddd;color: #888;overflow: hidden;}
+.close {position: absolute;top: 10px;right: 10px;color: #888;width: 17px;height: 17px;background: url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/overlay_close.png');}
+.close:hover {cursor: pointer;}
 </style>
 <body>
 <jsp:include page="/Header1.jsp" flush="false"/>
@@ -67,6 +78,8 @@ var map = new kakao.maps.Map(mapContainer, mapOption);
 
 // 장소 검색 객체를 생성합니다
 var ps = new kakao.maps.services.Places(); 
+
+
 
 
 //키워드 검색을 요청하는 함수입니다
@@ -191,6 +204,11 @@ for (var i = 0; i < coffeePositions.length; i++) {
     
     // 생성된 마커를 커피숍 마커 배열에 추가합니다
     coffeeMarkers.push(marker);
+    
+  //마커 클릭 이벤트
+    kakao.maps.event.addListener(marker, 'click', function() {
+        overlay.setMap(map);
+    });
 }     
 }
 
@@ -253,6 +271,36 @@ for (var i = 0; i < carparkMarkers.length; i++) {
 }        
 }
 
+
+var content = '<div class="customoverlay">' +
+'  <a href="https://www.instagram.com/kyeri_official" target="_blank">' +
+'    <span class="title">키에리</span>' +
+'  </a>' +
+'	 <div class="close" onclick="closeOverlay()" title="닫기"></div>' + 
+'    <div class="body">' + 
+'        <div class="img">' +
+'            <img src="https://search.pstatic.net/common/?autoRotate=true&quality=95&type=w750&src=http%3A%2F%2Fblogfiles.naver.net%2FMjAxODA5MjZfMjc4%2FMDAxNTM3OTcwOTY2NTM5.SzzCWDBhejOV4eSHerQd526ZmfiVvgOWBLUsuCmsqhcg.NOAieDU_9epsBbpzcGYqDtn3B6qBH8cSk5kOGep1_ZYg.JPEG.victory2929%2FIMG_3852.jpg" width="73" height="70">' +
+'        </div>' + 
+'        <div class="desc">' + 
+'            <div class="ellipsis">서울 용산구 이태원로26길 16-8 1층</div>' + 
+'            <div class="jibun ellipsis">설명 : 이태원에 위치한 비건 디저트 집</div>' + 
+'        </div>' + 
+'    </div>' + 
+'</div>';
+
+
+//커스텀 오버레이를 생성합니다
+var overlay = new kakao.maps.CustomOverlay({
+    content: content,
+    map: map,
+    position: coffeePositions[1]      
+});
+
+// 커스텀 오버레이를 닫기 위해 호출되는 함수입니다 
+function closeOverlay() {
+    overlay.setMap(null);     
+}
+
 //카테고리를 클릭했을 때 type에 따라 카테고리의 스타일과 지도에 표시되는 마커를 변경합니다
 function changeMarker(type){
 
@@ -300,6 +348,7 @@ if (type === 'coffee') {
     setCarparkMarkers(map);  
 }    
 } 
+
 </script>
 </body>
 </html>
