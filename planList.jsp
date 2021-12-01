@@ -69,13 +69,6 @@ cal.setTime( new Date(System.currentTimeMillis()));
 String today = new SimpleDateFormat("yyyy-MM-dd").format( cal.getTime()); // 오늘날짜
 
 SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-
-Date date = new Date(dateFormat.parse(day).getTime()); 
-Date todate = new Date(dateFormat.parse(today).getTime());
-    
-long calculate = (long) (date.getTime() - todate.getTime());
-
-int Ddays = (int) (calculate / ( 24*60*60*1000));
 %>
 
 <!DOCTYPE html>
@@ -165,7 +158,14 @@ function fn_deDay(v){
     			%>
     			<%	
     				}else{
+    					Date date = new Date(dateFormat.parse(day).getTime()); 
+    					Date todate = new Date(dateFormat.parse(today).getTime());
+        
+    					long calculate = (long) (date.getTime() - todate.getTime());
+
+    					int Ddays = (int) (calculate / ( 24*60*60*1000));
     			%>
+    				
     				<tr>
     					<td colspan="4"><a href="javascript:fn_deDay('<%=ddayname %>')"><%=ddayname %></a> - <%=Ddays%></td>
     				</tr>    			

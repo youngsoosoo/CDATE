@@ -41,7 +41,7 @@
 </div>
 <div id="mapwrap" style="width:100%;height:700px;text-align:center;"> 
     <!-- 지도가 표시될 div -->
-    <div id="map" style="width:100%;height:700px;"></div>
+    <div id="map"   style="width:100%;height:700px;"></div>
     <!-- 지도 위에 표시될 마커 카테고리 -->
     <div class="category">
         <ul>
@@ -64,6 +64,8 @@
 
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=14d0355f8e5b04f2089caf762e49cfab&libraries=services"></script>
 <script>
+// 마커를 클릭하면 장소명을 표출할 인포윈도우 입니다
+var infowindow = new kakao.maps.InfoWindow({zIndex:1});
 
 var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
     mapOption = {
@@ -76,6 +78,8 @@ var map = new kakao.maps.Map(mapContainer, mapOption);
 
 // 장소 검색 객체를 생성합니다
 var ps = new kakao.maps.services.Places(); 
+
+
 
 
 //키워드 검색을 요청하는 함수입니다
@@ -159,46 +163,12 @@ coffeeMarkers = [], // 커피숍 마커 객체를 가지고 있을 배열입니�
 storeMarkers = [], // 편의점 마커 객체를 가지고 있을 배열입니다
 carparkMarkers = []; // 주차장 마커 객체를 가지고 있을 배열입니다
 
-//커스텀 오버레이를 닫기 위해 호출되는 함수입니다 
-function closeOverlay() {
-    overlay.setMap(null);     
-}
-});
-
-var content = '<div class="customoverlay">' +
-'  <a href="https://www.instagram.com/kyeri_official" target="_blank">' +
-'    <span class="title">키에리</span>' +
-'  </a>' +
-'	 <div class="close" onclick="closeOverlay()" title="닫기"></div>' + 
-'    <div class="body">' + 
-'        <div class="img">' +
-'            <img src="https://search.pstatic.net/common/?autoRotate=true&quality=95&type=w750&src=http%3A%2F%2Fblogfiles.naver.net%2FMjAxODA5MjZfMjc4%2FMDAxNTM3OTcwOTY2NTM5.SzzCWDBhejOV4eSHerQd526ZmfiVvgOWBLUsuCmsqhcg.NOAieDU_9epsBbpzcGYqDtn3B6qBH8cSk5kOGep1_ZYg.JPEG.victory2929%2FIMG_3852.jpg" width="73" height="70">' +
-'        </div>' + 
-'        <div class="desc">' + 
-'            <div class="ellipsis">서울 용산구 이태원로26길 16-8 1층</div>' + 
-'            <div class="jibun ellipsis">설명 : 이태원에 위치한 비건 디저트 집</div>' + 
-'        </div>' + 
-'    </div>' + 
-'</div>';
-
-
-//커스텀 오버레이를 생성합니다
-var overlay = new kakao.maps.CustomOverlay({
-    content: content,
-    map: map,
-    position: coffeePositions[1]      
-});
-
-// 커스텀 오버레이를 닫기 위해 호출되는 함수입니다 
-function closeOverlay() {
-    overlay.setMap(null);     
-}
 
 createCoffeeMarkers(); // 커피숍 마커를 생성하고 커피숍 마커 배열에 추가합니다
 createStoreMarkers(); // 편의점 마커를 생성하고 편의점 마커 배열에 추가합니다
 createCarparkMarkers(); // 주차장 마커를 생성하고 주차장 마커 배열에 추가합니다
 
-changeMarker(); // 지도에 커피숍 마커가 보이도록 설정합니다    
+changeMarker(''); // 지도에 커피숍 마커가 보이도록 설정합니다    
 
 
 //마커이미지의 주소와, 크기, 옵션으로 마커 이미지를 생성하여 리턴하는 함수입니다
@@ -230,21 +200,36 @@ for (var i = 0; i < coffeePositions.length; i++) {
     
     // 마커이미지와 마커를 생성합니다
     var markerImage = createMarkerImage(markerImageSrc, imageSize, imageOptions),    
-        marker = createMarker(coffeePositions[i], markerImage);  
+        marker = createMarker(coffeePositions[0], markerImage);  
+    
+    marker1 = createMarker(coffeePositions[1], markerImage);  
+    
+    marker2 = createMarker(coffeePositions[2], markerImage);  
+    
+    marker3 = createMarker(coffeePositions[3], markerImage);  
+    
+    marker4 = createMarker(coffeePositions[4], markerImage);  
+    
+    marker5 = createMarker(coffeePositions[5], markerImage);  
     
     // 생성된 마커를 커피숍 마커 배열에 추가합니다
     coffeeMarkers.push(marker);
+    coffeeMarkers.push(marker1);
+    coffeeMarkers.push(marker2);
+    coffeeMarkers.push(marker3);
+    coffeeMarkers.push(marker4);
+    coffeeMarkers.push(marker5);
     
-    
-    
-  	//마커 클릭 이벤트
+  //마커 클릭 이벤트
     kakao.maps.event.addListener(marker, 'click', function() {
-        overlay.setMap(map);
+    	overlay = new kakao.maps.CustomOverlay({
+    	    content: content[i],
+    	    map: map,
+    	    position: coffeePositions[i]      
+    	});
     });
-  	
 }     
 }
-
 
 //커피숍 마커들의 지도 표시 여부를 설정하는 함수입니다
 function setCoffeeMarkers(map) {        
@@ -305,9 +290,70 @@ for (var i = 0; i < carparkMarkers.length; i++) {
 }        
 }
 
+//커스텀 오버레이를 생성합니다
+var overlay = new kakao.maps.CustomOverlay({
+    content: content[0],
+    map: map,
+    position: coffeePositions[0]      
+});
+
+var content[] = {
+		'<div class="customoverlay">' +
+		'  <a href="https://www.instagram.com/sayoo.kr" target="_blank">' +
+		'    <span class="title">사유</span>' +
+		'  </a>' +
+		'	 <div class="close" onclick="closeOverlay()" title="닫기"></div>' + 
+		'    <div class="body">' + 
+		'        <div class="img">' +
+		'            <img src="https://search.pstatic.net/common/?autoRotate=true&quality=95&type=w750&src=https%3A%2F%2Fmyplace-phinf.pstatic.net%2F20211125_277%2F1637798708016RHn3D_JPEG%2Fupload_3555521f3df22e6001f300ba0e6548b4.jpeg" width="73" height="70">' +
+		'        </div>' + 
+		'        <div class="desc">' + 
+		'            <div class="ellipsis">서울 용산구 이태원로54길 5</div>' + 
+		'            <div class="jibun ellipsis">설명 : 이태원에 위치한 작은 유럽같은 카페</div>' + 
+		'        </div>' + 
+		'    </div>' + 
+		'</div>',
+		
+		'<div class="customoverlay">' +
+		'  <a href="https://www.instagram.com/kyeri_official" target="_blank">' +
+		'    <span class="title">키에리</span>' +
+		'  </a>' +
+		'	 <div class="close" onclick="closeOverlay()" title="닫기"></div>' + 
+		'    <div class="body">' + 
+		'        <div class="img">' +
+		'            <img src="https://search.pstatic.net/common/?autoRotate=true&quality=95&type=w750&src=http%3A%2F%2Fblogfiles.naver.net%2FMjAxODA5MjZfMjc4%2FMDAxNTM3OTcwOTY2NTM5.SzzCWDBhejOV4eSHerQd526ZmfiVvgOWBLUsuCmsqhcg.NOAieDU_9epsBbpzcGYqDtn3B6qBH8cSk5kOGep1_ZYg.JPEG.victory2929%2FIMG_3852.jpg" width="73" height="70">' +
+		'        </div>' + 
+		'        <div class="desc">' + 
+		'            <div class="ellipsis">서울 용산구 이태원로26길 16-8 1층</div>' + 
+		'            <div class="jibun ellipsis">설명 : 이태원에 위치한 비건 디저트 집</div>' + 
+		'        </div>' + 
+		'    </div>' + 
+		'</div>'
+		
+}
 
 
+var content1 = '<div class="customoverlay">' +
+'  <a href="https://www.instagram.com/kyeri_official" target="_blank">' +
+'    <span class="title">키에리</span>' +
+'  </a>' +
+'	 <div class="close" onclick="closeOverlay()" title="닫기"></div>' + 
+'    <div class="body">' + 
+'        <div class="img">' +
+'            <img src="https://search.pstatic.net/common/?autoRotate=true&quality=95&type=w750&src=http%3A%2F%2Fblogfiles.naver.net%2FMjAxODA5MjZfMjc4%2FMDAxNTM3OTcwOTY2NTM5.SzzCWDBhejOV4eSHerQd526ZmfiVvgOWBLUsuCmsqhcg.NOAieDU_9epsBbpzcGYqDtn3B6qBH8cSk5kOGep1_ZYg.JPEG.victory2929%2FIMG_3852.jpg" width="73" height="70">' +
+'        </div>' + 
+'        <div class="desc">' + 
+'            <div class="ellipsis">서울 용산구 이태원로26길 16-8 1층</div>' + 
+'            <div class="jibun ellipsis">설명 : 이태원에 위치한 비건 디저트 집</div>' + 
+'        </div>' + 
+'    </div>' + 
+'</div>';
 
+
+// 커스텀 오버레이를 닫기 위해 호출되는 함수입니다 
+function closeOverlay() {
+    overlay.setMap(null);     
+}
 
 //카테고리를 클릭했을 때 type에 따라 카테고리의 스타일과 지도에 표시되는 마커를 변경합니다
 function changeMarker(type){
