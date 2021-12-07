@@ -43,7 +43,6 @@ int result = pstmt.executeUpdate(sql);
 	self.close();
 	opener.location = "planList.jsp";
 </script>
-%>
 <!DOCTYPE html>
 <html>
 <head>

@@ -18,7 +18,7 @@
 <ul id ="tabmenu">
 	<li><a href="Main1.jsp" class="move">HOME</a></li>
 	<li><a href="Map.jsp">데이트 코스 검색</a></li>
-	<li><a href="Mapca.jsp">카테고리 추천</a></li>
+	<li><a href="Markers.jsp">카테고리 추천</a></li>
 	<li><a href="planList.jsp">캘린더</a></li>
 	<li></li><li></li><li></li><li></li><li></li><li></li><li></li>
 	<li><a href="logout.jsp">로그아웃</a></li>

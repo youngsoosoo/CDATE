@@ -29,14 +29,21 @@
 .close {position: absolute;top: 10px;right: 10px;color: #888;width: 17px;height: 17px;background: url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/overlay_close.png');}
 .close:hover {cursor: pointer;}
 </style>
+<script>
+function fn_review() {
+	var w = (window.screen.width/2)- 200;
+	var h = (window.screen.height/2)- 200;
+	var url = "review.jsp";
+	window.open(url, "review", "width=500, height=500, left="+w+", top="+h);
+}
+</script>
 <body>
 <jsp:include page="/Header1.jsp" flush="false"/>
 	<br><br><br><br>
-<div id="sea" style="text-align:center">
+<div style="text-align:center">
 <form onsubmit="search(); return false;">
 	키워드 : <input type="text" value="" id="keyword" size="15"> 
     <button type="submit">검색하기</button> 
-    <br>
 </form>
 </div>
 <div id="mapwrap" style="width:100%;height:700px;text-align:center;"> 
@@ -392,10 +399,82 @@ for (var i = 0; i < carparkPositions.length; i++) {
  
     // 마커이미지와 마커를 생성합니다
     var markerImage = createMarkerImage(markerImageSrc, imageSize, imageOptions),    
-        marker = createMarker(carparkPositions[i], markerImage);  
+        marker = createMarker(carparkPositions[0], markerImage);  
 
-    // 생성된 마커를 주차장 마커 배열에 추가합니다
-    carparkMarkers.push(marker);        
+	marker1 = createMarker(carparkPositions[1], markerImage);  
+    
+    marker2 = createMarker(carparkPositions[2], markerImage);  
+    
+    marker3 = createMarker(carparkPositions[3], markerImage);  
+    
+    marker4 = createMarker(carparkPositions[4], markerImage);  
+    
+    marker5 = createMarker(carparkPositions[5], markerImage);  
+    
+    marker6 = createMarker(carparkPositions[6], markerImage);  
+    
+    
+    // 생성된 마커를 맛집 마커 배열에 추가합니다
+    carparkMarkers.push(marker);    
+    carparkMarkers.push(marker1); 
+    carparkMarkers.push(marker2); 
+    carparkMarkers.push(marker3); 
+    carparkMarkers.push(marker4); 
+    carparkMarkers.push(marker5); 
+    carparkMarkers.push(marker6); 
+    
+    
+  //마커 클릭 이벤트
+    kakao.maps.event.addListener(marker, 'click', function() {
+    	overlay = new kakao.maps.CustomOverlay({
+    	    content: bcontent,
+    	    map: map,
+    	    position: carparkPositions[0]     
+    	});
+    });
+    kakao.maps.event.addListener(marker1, 'click', function() {
+    	overlay = new kakao.maps.CustomOverlay({
+    	    content: bcontent1,
+    	    map: map,
+    	    position: carparkPositions[1]    
+    	});
+    });
+    kakao.maps.event.addListener(marker2, 'click', function() {
+    	overlay = new kakao.maps.CustomOverlay({
+    	    content: bcontent2,
+    	    map: map,
+    	    position: carparkPositions[2]
+    	});
+    });
+    kakao.maps.event.addListener(marker3, 'click', function() {
+    	overlay = new kakao.maps.CustomOverlay({
+    	    content: bcontent3,
+    	    map: map,
+    	    position: carparkPositions[3]
+    	});
+    });
+    kakao.maps.event.addListener(marker4, 'click', function() {
+    	overlay = new kakao.maps.CustomOverlay({
+    	    content: bcontent4,
+    	    map: map,
+    	    position: carparkPositions[4]  
+    	});
+    });
+    kakao.maps.event.addListener(marker5, 'click', function() {
+    	overlay = new kakao.maps.CustomOverlay({
+    	    content: bcontent5,
+    	    map: map,
+    	    position: carparkPositions[5]
+    	});
+    });
+    kakao.maps.event.addListener(marker6, 'click', function() {
+    	overlay = new kakao.maps.CustomOverlay({
+    	    content: bcontent6,
+    	    map: map,
+    	    position: carparkPositions[6] 
+    	});
+    });
+      
 }                
 }
 
@@ -419,9 +498,11 @@ var content = '<div class="customoverlay">' +
 '  </a>' +
 '	 <div class="close" onclick="closeOverlay()" title="닫기"></div>' + 
 '    <div class="body">' + 
+'    <a onclick="fn_review()">' + 
 '        <div class="img">' +
 '            <img src="https://search.pstatic.net/common/?autoRotate=true&quality=95&type=w750&src=https%3A%2F%2Fmyplace-phinf.pstatic.net%2F20211125_277%2F1637798708016RHn3D_JPEG%2Fupload_3555521f3df22e6001f300ba0e6548b4.jpeg" width="73" height="70">' +
 '        </div>' + 
+'    </a>' + 
 '        <div class="desc">' + 
 '            <div class="ellipsis">서울 용산구 이태원로54길 5</div>' + 
 '            <div class="jibun ellipsis">설명 : 이태원에 위치한 작은 유럽같은 카페</div>' + 
@@ -574,17 +655,17 @@ var aoverlay = new kakao.maps.CustomOverlay({
 });
 
 var acontent = '<div class="customoverlay">' +
-'  <a href="https://www.instagram.com/sayoo.kr" target="_blank">' +
-'    <span class="title">사유</span>' +
+'  <a href="https://www.instagram.com/the_q.escape" target="_blank">' +
+'    <span class="title">더큐 이스케이프</span>' +
 '  </a>' +
 '	 <div class="close" onclick="closeOverlay()" title="닫기"></div>' + 
 '    <div class="body">' + 
 '        <div class="img">' +
-'            <img src="https://search.pstatic.net/common/?autoRotate=true&quality=95&type=w750&src=https%3A%2F%2Fmyplace-phinf.pstatic.net%2F20211125_277%2F1637798708016RHn3D_JPEG%2Fupload_3555521f3df22e6001f300ba0e6548b4.jpeg" width="73" height="70">' +
+'            <img src="https://search.pstatic.net/common/?autoRotate=true&quality=95&type=w750&src=https%3A%2F%2Fldb-phinf.pstatic.net%2F20200712_222%2F1594554149021GGrHl_JPEG%2FZD9BifGwD0fXw-w0FJNAulYH.jpg" width="73" height="70">' +
 '        </div>' + 
 '        <div class="desc">' + 
-'            <div class="ellipsis">서울 용산구 이태원로54길 5</div>' + 
-'            <div class="jibun ellipsis">설명 : 이태원에 위치한 작은 유럽같은 카페</div>' + 
+'            <div class="ellipsis">서울 마포구 홍익로6길 15 4층</div>' + 
+'            <div class="jibun ellipsis">설명 : 홍대에 위치한 이색 데이트를 할 수 있는 방탈출 카페</div>' + 
 '        </div>' + 
 '    </div>' + 
 '</div>';
@@ -597,8 +678,168 @@ var aoverlay1 = new kakao.maps.CustomOverlay({
 });
 
 var acontent1 = '<div class="customoverlay">' +
+'  <a href="https://blog.naver.com/dudrl2323" target="_blank">' +
+'    <span class="title">플라비</span>' +
+'  </a>' +
+'	 <div class="close" onclick="closeOverlay()" title="닫기"></div>' + 
+'    <div class="body">' + 
+'        <div class="img">' +
+'            <img src="https://search.pstatic.net/common/?autoRotate=true&quality=95&type=w750&src=https%3A%2F%2Fldb-phinf.pstatic.net%2F20210309_96%2F1615269710597k9jUl_JPEG%2Fmi2dq-8Qb-Lx3BzgZ7UeZhaf.jpg" width="73" height="70">' +
+'        </div>' + 
+'        <div class="desc">' + 
+'            <div class="ellipsis">서울 마포구 와우산로27길 23 지하1층</div>' + 
+'            <div class="jibun ellipsis">설명 : 홍대에 위치한 커플 아이템을 만들 수 있는 공방</div>' + 
+'        </div>' + 
+'    </div>' + 
+'</div>';
+
+var aoverlay2 = new kakao.maps.CustomOverlay({
+    content: acontent2,
+    map: map,
+    position: storePositions[2]
+});
+
+var acontent2 = '<div class="customoverlay">' +
+'  <a href="http://instagram.com/medium.cafe.studio" target="_blank">' +
+'    <span class="title">미디엄 카페</span>' +
+'  </a>' +
+'	 <div class="close" onclick="closeOverlay()" title="닫기"></div>' + 
+'    <div class="body">' + 
+'        <div class="img">' +
+'            <img src="https://search.pstatic.net/common/?autoRotate=true&quality=95&type=w750&src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMTA4MDNfODQg%2FMDAxNjI4MDAwOTAzMTQ5.k3OkI7yJWbGSUHrspIDTUD4fHwUuJx6FFAJl99GI2H8g.aMzKX3ZodcWAE4h65stsvZqPomVZriFY6RxwjnGa_A0g.JPEG.isaac0331%2FIMG_2255.jpg" width="73" height="70">' +
+'        </div>' + 
+'        <div class="desc">' + 
+'            <div class="ellipsis">서울 마포구 와우산로18길 38 2층</div>' + 
+'            <div class="jibun ellipsis">설명 : 홍대에 위치한 그림그리기와 커피를 함께 즐길 수 있는 카페</div>' + 
+'        </div>' + 
+'    </div>' + 
+'</div>';
+
+var aoverlay3 = new kakao.maps.CustomOverlay({
+    content: acontent3,
+    map: map,
+    position: storePositions[3]
+});
+
+var acontent3 = '<div class="customoverlay">' +
+'  <a href="http://www.redbutton.co.kr" target="_blank">' +
+'    <span class="title">레드버튼</span>' +
+'  </a>' +
+'	 <div class="close" onclick="closeOverlay()" title="닫기"></div>' + 
+'    <div class="body">' + 
+'        <div class="img">' +
+'            <img src="https://search.pstatic.net/common/?autoRotate=true&quality=95&type=w750&src=https%3A%2F%2Fldb-phinf.pstatic.net%2F20210507_134%2F1620346804749Gszzf_JPEG%2FRBA2GnlYzPJMfvSNbAVU4Joe.jpg" width="73" height="70">' +
+'        </div>' + 
+'        <div class="desc">' + 
+'            <div class="ellipsis">서울 마포구 홍익로 19 3층</div>' + 
+'            <div class="jibun ellipsis">설명 : 홍대에 위치한 보드게임을 즐길 수 있는 보드게임 카페</div>' + 
+'        </div>' + 
+'    </div>' + 
+'</div>';
+
+var aoverlay4 = new kakao.maps.CustomOverlay({
+    content: acontent4,
+    map: map,
+    position: storePositions[4]
+});
+
+var acontent4 = '<div class="customoverlay">' +
+'  <a href="http://www.instagram.com/laserarena.kr" target="_blank">' +
+'    <span class="title">레이저엑스</span>' +
+'  </a>' +
+'	 <div class="close" onclick="closeOverlay()" title="닫기"></div>' + 
+'    <div class="body">' + 
+'        <div class="img">' +
+'            <img src="https://search.pstatic.net/common/?autoRotate=true&quality=95&type=w750&src=https%3A%2F%2Fldb-phinf.pstatic.net%2F20210126_178%2F1611658888432SQEN4_JPEG%2FbU_KaAd4kPhHqaI42YRaMEBz.jpg" width="73" height="70">' +
+'        </div>' + 
+'        <div class="desc">' + 
+'            <div class="ellipsis">서울 마포구 와우산로 111 태화프라자 5층 레이저엑스</div>' + 
+'            <div class="jibun ellipsis">설명 : 홍대에 위치한 서바이벌을 즐길 수 있는<br> 서바이벌 게임장</div>' + 
+'        </div>' + 
+'    </div>' + 
+'</div>';
+
+var aoverlay5 = new kakao.maps.CustomOverlay({
+    content: acontent5,
+    map: map,
+    position: storePositions[5]
+});
+
+var acontent5 = '<div class="customoverlay">' +
+'  <a href="https://www.instagram.com/coaching_love" target="_blank">' +
+'    <span class="title">코칭</span>' +
+'  </a>' +
+'	 <div class="close" onclick="closeOverlay()" title="닫기"></div>' + 
+'    <div class="body">' + 
+'        <div class="img">' +
+'            <img src="https://search.pstatic.net/common/?autoRotate=true&quality=95&type=w750&src=https%3A%2F%2Fldb-phinf.pstatic.net%2F20180330_157%2F1522377415130wXYs2_JPEG%2FskmeswiPuXEeX5zhhGeE4vTY.jpg" width="73" height="70">' +
+'        </div>' + 
+'        <div class="desc">' + 
+'            <div class="ellipsis">서울 마포구 어울마당로 118 6층</div>' + 
+'            <div class="jibun ellipsis">설명 : 홍대에 위치한 심리 분석을 할 수 있는<br> 심리 카페</div>' + 
+'        </div>' + 
+'    </div>' + 
+'</div>';
+
+var aoverlay6 = new kakao.maps.CustomOverlay({
+    content: acontent6,
+    map: map,
+    position: storePositions[6]
+});
+
+var acontent6 = '<div class="customoverlay">' +
+'  <a href="http://www.simsinfree.com" target="_blank">' +
+'    <span class="title">심신프리</span>' +
+'  </a>' +
+'	 <div class="close" onclick="closeOverlay()" title="닫기"></div>' + 
+'    <div class="body">' + 
+'        <div class="img">' +
+'            <img src="https://search.pstatic.net/common/?autoRotate=true&quality=95&type=w750&src=https%3A%2F%2Fldb-phinf.pstatic.net%2F20200901_56%2F1598934619502RC59G_PNG%2F%25C0%25FC%25BD%25C5%25B8%25B6%25BB%25E7%25C1%25F6.png" width="73" height="70">' +
+'        </div>' + 
+'        <div class="desc">' + 
+'            <div class="ellipsis">서울특별시 마포구 어울마당로 98-1 더샘매장 3층</div>' + 
+'            <div class="jibun ellipsis">설명 : 홍대에 위치한 편안하게 꿀잠과 휴식을 즐길 수 있는<br> 힐링 카페</div>' + 
+'        </div>' + 
+'    </div>' + 
+'</div>';
+
+
+
+
+
+//맛집의 커스텀 오버레이를 생성합니다
+var boverlay = new kakao.maps.CustomOverlay({
+    content: bcontent,
+    map: map,
+    position: carparkPositions[0]      
+});
+
+var bcontent = '<div class="customoverlay">' +
+'  <a href="https://map.naver.com/v5/search/%EC%97%B0%EB%82%A8%EC%B7%A8%ED%96%A5/place/1206369946?c=14128372.3146709,4517514.9426455,15,0,0,3,dh&placePath=%3Fentry%253Dbmp" target="_blank">' +
+'    <span class="title">연남취향</span>' +
+'  </a>' +
+'	 <div class="close" onclick="closeOverlay()" title="닫기"></div>' + 
+'    <div class="body">' + 
+'        <div class="img">' +
+'            <img src="https://search.pstatic.net/common/?autoRotate=true&quality=95&type=w750&src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMDEyMDlfMTY2%2FMDAxNjA3NTE3MTA5MDE5.YPkH_alzYhK9Q0aZ_gP-2jkF1Rlz6-Cc04P3NUelbG4g.4vvuLML0E2pwYoyhZIdWA4U7mb_h7GPb7gPLqc_E4EAg.PNG.v2eoh%2F%253F%25A0%259C%25EB%25AA%25A9%25EC%259D%2584-%253F%259E%2585%253F%25A0%25A5%253F%2595%25B4%25EC%25A3%25BC%25EC%2584%25B8%253F%259A%2594.-46.png" width="73" height="70">' +
+'        </div>' + 
+'        <div class="desc">' + 
+'            <div class="ellipsis">서울 마포구 연희로1길 36</div>' + 
+'            <div class="jibun ellipsis">설명 : 연남동에 위치한 맛있는 양식을 즐길 수 있는 맛집</div>' + 
+'        </div>' + 
+'    </div>' + 
+'</div>';
+
+
+var boverlay1 = new kakao.maps.CustomOverlay({
+    content: bcontent1,
+    map: map,
+    position: carparkPositions[1]  
+});
+
+var bcontent1 = '<div class="customoverlay">' +
 '  <a href="https://www.instagram.com/kyeri_official" target="_blank">' +
-'    <span class="title">키에리</span>' +
+'    <span class="title">마포곱창타운</span>' +
 '  </a>' +
 '	 <div class="close" onclick="closeOverlay()" title="닫기"></div>' + 
 '    <div class="body">' + 
@@ -612,15 +853,15 @@ var acontent1 = '<div class="customoverlay">' +
 '    </div>' + 
 '</div>';
 
-var aoverlay2 = new kakao.maps.CustomOverlay({
-    content: acontent2,
+var boverlay2 = new kakao.maps.CustomOverlay({
+    content: bcontent2,
     map: map,
-    position: storePositions[2]
+    position: carparkPositions[2]  
 });
 
-var acontent2 = '<div class="customoverlay">' +
+var bcontent2 = '<div class="customoverlay">' +
 '  <a href="https://www.instagram.com/valt.official" target="_blank">' +
-'    <span class="title">발트</span>' +
+'    <span class="title">유니의 우아한 식당</span>' +
 '  </a>' +
 '	 <div class="close" onclick="closeOverlay()" title="닫기"></div>' + 
 '    <div class="body">' + 
@@ -634,15 +875,15 @@ var acontent2 = '<div class="customoverlay">' +
 '    </div>' + 
 '</div>';
 
-var aoverlay3 = new kakao.maps.CustomOverlay({
-    content: acontent3,
+var boverlay3 = new kakao.maps.CustomOverlay({
+    content: bcontent3,
     map: map,
-    position: storePositions[3]
+    position: carparkPositions[3]  
 });
 
-var acontent3 = '<div class="customoverlay">' +
+var bcontent3 = '<div class="customoverlay">' +
 '  <a href="http://www.gutea.co.kr" target="_blank">' +
-'    <span class="title">지유명차</span>' +
+'    <span class="title">올랑올랑</span>' +
 '  </a>' +
 '	 <div class="close" onclick="closeOverlay()" title="닫기"></div>' + 
 '    <div class="body">' + 
@@ -656,15 +897,15 @@ var acontent3 = '<div class="customoverlay">' +
 '    </div>' + 
 '</div>';
 
-var aoverlay4 = new kakao.maps.CustomOverlay({
-    content: acontent4,
+var boverlay4 = new kakao.maps.CustomOverlay({
+    content: bcontent4,
     map: map,
-    position: storePositions[4]
+    position: carparkPositions[4]  
 });
 
-var acontent4 = '<div class="customoverlay">' +
+var bcontent4 = '<div class="customoverlay">' +
 '  <a href="http://www.instagram.com/kase_coffee" target="_blank">' +
-'    <span class="title">캐제</span>' +
+'    <span class="title">빌라 더 다이닝</span>' +
 '  </a>' +
 '	 <div class="close" onclick="closeOverlay()" title="닫기"></div>' + 
 '    <div class="body">' + 
@@ -678,15 +919,15 @@ var acontent4 = '<div class="customoverlay">' +
 '    </div>' + 
 '</div>';
 
-var aoverlay5 = new kakao.maps.CustomOverlay({
-    content: acontent5,
+var boverlay5 = new kakao.maps.CustomOverlay({
+    content: bcontent5,
     map: map,
-    position: storePositions[5]
+    position: carparkPositions[5]  
 });
 
-var acontent5 = '<div class="customoverlay">' +
+var bcontent5 = '<div class="customoverlay">' +
 '  <a href="http://instagram.com/thatcoffee_" target="_blank">' +
-'    <span class="title">댓</span>' +
+'    <span class="title">졸리연남</span>' +
 '  </a>' +
 '	 <div class="close" onclick="closeOverlay()" title="닫기"></div>' + 
 '    <div class="body">' + 
@@ -700,15 +941,15 @@ var acontent5 = '<div class="customoverlay">' +
 '    </div>' + 
 '</div>';
 
-var aoverlay6 = new kakao.maps.CustomOverlay({
-    content: acontent6,
+var boverlay6 = new kakao.maps.CustomOverlay({
+    content: bcontent6,
     map: map,
-    position: storePositions[6]
+    position: carparkPositions[6]  
 });
 
-var acontent6 = '<div class="customoverlay">' +
+var bcontent6 = '<div class="customoverlay">' +
 '  <a href="http://instagram.com/analog_2013" target="_blank">' +
-'    <span class="title">아날로그</span>' +
+'    <span class="title">에그써티</span>' +
 '  </a>' +
 '	 <div class="close" onclick="closeOverlay()" title="닫기"></div>' + 
 '    <div class="body">' + 
