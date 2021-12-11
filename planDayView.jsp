@@ -1,26 +1,14 @@
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.util.Date"%>
 <%@page import="java.util.Calendar"%>
-<%@page import="java.sql.DriverManager"%>
-<%@page import="java.sql.Connection"%>
-<%@page import="java.sql.PreparedStatement"%>
-<%@page import="java.sql.ResultSet"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.io.PrintWriter"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="plan.planDAO"%>
 <%@ page import="plan.planDTO"%>
+<%@ include file="connectDB.jsp" %><!-- 데이터베이스 커넥션 생성 -->
 <%
-Connection conn;
-PreparedStatement pstmt;
-
-String dbURL = "jdbc:mysql://localhost:3306/student";
-String dbID = "root";
-String dbPassword = "1018pskc!!";
-Class.forName("com.mysql.jdbc.Driver");
-conn = DriverManager.getConnection(dbURL, dbID, dbPassword); 
-
 String USERID = (String) session.getAttribute("userId");
 String ddayname = (String) request.getParameter("ddayname");
 if(ddayname==null){
@@ -45,7 +33,7 @@ if(USERID ==null){
 String 	sql = "select ddayname, day from dday";
 		sql += " where userid='" + USERID + "' and ddayname='" + ddayname + "'";
 		pstmt = conn.prepareStatement(sql);
-		ResultSet rs = pstmt.executeQuery(sql);
+		rs = pstmt.executeQuery(sql);
 
 	String dayname = "";
 	String dday = "";

@@ -1,16 +1,7 @@
-<%@page import="java.sql.*"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ include file="connectDB.jsp" %><!-- 데이터베이스 커넥션 생성 -->
 <%
-Connection conn;
-PreparedStatement pstmt;
-
-String dbURL = "jdbc:mysql://localhost:3306/student";
-String dbID = "root";
-String dbPassword = "1018pskc!!";
-Class.forName("com.mysql.jdbc.Driver");
-conn = DriverManager.getConnection(dbURL, dbID, dbPassword); 
-
 String review = request.getParameter("reviewcontent");
 String replace = request.getParameter("replace");
 %>

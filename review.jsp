@@ -1,8 +1,8 @@
-<%@page import="java.sql.*"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="review.review"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ include file="connectDB.jsp" %><!-- 데이터베이스 커넥션 생성 -->
 <!DOCTYPE html>
 <html>
 <head>
@@ -36,18 +36,6 @@
 	}
 </style>
 <body>
-<%
-Connection conn;
-PreparedStatement pstmt;
-
-String dbURL = "jdbc:mysql://localhost:3306/student";
-String dbID = "root";
-String dbPassword = "1018pskc!!";
-Class.forName("com.mysql.jdbc.Driver");
-conn = DriverManager.getConnection(dbURL, dbID, dbPassword); 
-
-
-%>
 <table>
 	<tr>
 		<th colspan="2">★간단 리뷰★<input type="button" onclick="location.href='reviewWrite.jsp'" value="작성하기"></td>
@@ -59,7 +47,7 @@ conn = DriverManager.getConnection(dbURL, dbID, dbPassword);
 	String sql = "select * from  review";
 	ArrayList<review> list = new ArrayList<review>();
 	pstmt = conn.prepareStatement(sql);
-	ResultSet rs = pstmt.executeQuery(sql);
+	rs = pstmt.executeQuery(sql);
 		while(rs.next()) {
 			review review = new review();
 			review.setReviewcontent(rs.getString("reviewcontent"));

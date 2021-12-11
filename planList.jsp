@@ -1,22 +1,10 @@
 <%@page import="java.sql.Date"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.util.Calendar"%>
-<%@page import="java.sql.ResultSet"%>
-<%@page import="java.sql.DriverManager"%>
-<%@page import="java.sql.PreparedStatement"%>
-<%@page import="java.sql.Connection"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ include file="connectDB.jsp" %><!-- 데이터베이스 커넥션 생성 -->
 <%
-Connection conn;
-PreparedStatement pstmt;
-
-String dbURL = "jdbc:mysql://localhost:3306/student";
-String dbID = "root";
-String dbPassword = "1018pskc!!";
-Class.forName("com.mysql.jdbc.Driver");
-conn = DriverManager.getConnection(dbURL, dbID, dbPassword); 	
-
 	String USERID = (String) session.getAttribute("userId");
 	
 	String yy = request.getParameter("year");
@@ -53,7 +41,7 @@ conn = DriverManager.getConnection(dbURL, dbID, dbPassword);
 	String 	SQL = "select day, ddayname from dday";
 	SQL += " where userid='" + USERID + "'";
 	pstmt = conn.prepareStatement(SQL);
-	ResultSet rs = pstmt.executeQuery(SQL);
+	rs = pstmt.executeQuery(SQL);
 	String today1 = new SimpleDateFormat("yyyy-MM-dd").format( cal.getTime());
 	
 String day = "";
