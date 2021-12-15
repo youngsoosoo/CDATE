@@ -82,6 +82,16 @@ int Ddays = (int) (calculate / ( 24*60*60*1000));
 	}
 </script>
 <style>
+	input[type=button]{
+        background-color: #55d01f;
+        border:none;
+        color:white;
+        border-radius: 5px;
+        width:100%;
+        height:5%;
+        font-size: 10pt;
+        
+    }
 	body {
 		font-size:9pt;
 		font-family:맑은 고딕;
@@ -92,7 +102,7 @@ int Ddays = (int) (calculate / ( 24*60*60*1000));
 		border-collapse:collapse; /* 셀 간격을 지움 */
 	}
 	th, td {
-		border:1px solid #cccccc;
+		border:1px solid #55d01f;
 		padding:5px;
 	}
 	caption {
@@ -119,9 +129,11 @@ int Ddays = (int) (calculate / ( 24*60*60*1000));
 		</tr>
 </table>
 <div class="div1">
-	<button type="button" onclick="fn_ddaymodify();">수정</button>
-	<button type="button" onclick="fn_ddaydelete();">삭제</button>
-	<button type="button" onclick="self.close();">닫기</button>
+	<input type="button" onclick="fn_ddaymodify();" value="수정">
+	<br><br>
+	<input type="button" onclick="fn_ddaydelete();" value="삭제">
+	<br><br>
+	<input type="button" onclick="self.close();" value="닫기">
 </div>
 </body>
 </html>

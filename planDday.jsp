@@ -25,12 +25,20 @@ String 	sql = "INSERT INTO dday(userid,day,ddayname) ";
 		sql += " VALUES('"+USERID+"','"+setDate+"','"+setName+"')";
 		pstmt = conn.prepareStatement(sql);
 int result = pstmt.executeUpdate(sql);
+if(result == 1){
 %>
 <script>
 	alert("디데이 생성 완료!");
 	self.close();
 	opener.location = "planList.jsp";
 </script>
+<%} else{%>
+	<script>
+	alert("디데이 수정실패!");
+	self.close();
+	opener.location = "planList.jsp";
+</script>
+<%} %>
 <!DOCTYPE html>
 <html>
 <head>

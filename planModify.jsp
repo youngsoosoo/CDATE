@@ -68,6 +68,26 @@ if(rs.next()) {
 	}
 </script>
 <style>
+	button[type=button]{
+        background-color: #55d01f;
+        border:none;
+        color:white;
+        border-radius: 5px;
+        width:100%;
+        height:5%;
+        font-size: 10pt;
+        
+    }
+    button[type=submit]{
+        background-color: #55d01f;
+        border:none;
+        color:white;
+        border-radius: 5px;
+        width:100%;
+        height:5%;
+        font-size: 10pt;
+        
+    }
 	body {
 		font-size:9pt;
 		font-family:맑은 고딕;
@@ -78,7 +98,7 @@ if(rs.next()) {
 		border-collapse:collapse; /* 셀 간격을 지움 */
 	}
 	th, td {
-		border:1px solid #cccccc;
+		border:1px solid #55d01f;
 		padding:5px;
 	}
 	caption {
@@ -97,12 +117,11 @@ if(rs.next()) {
 	boolean re = new planDAO().getList(USERID, pdate);
 %>
 <form name="frm" method="post" action="planModifySave.jsp">
-<input type="hidden" name="pdate" value="<%=pdate%>">
 <table>
 	<caption>일정수정</caption>
 		<tr>
 			<th width="20%">날짜</th>
-			<td width="80"><input type="date" name="pdate" id="pdate" value="<%=pdate %>" style="width:98%"></td>
+			<td width="80"><input type="hidden" name="pdate" id="pdate" value="<%=pdate %>" style="width:98%"><%=pdate %></td>
 		</tr>
 		<tr>
 			<th>제목</th>
@@ -115,6 +134,7 @@ if(rs.next()) {
 </table>
 <div class="div1">
 	<button type="submit" onclick="fn_submit(); return false;">저장</button>
+	<br><br>
 	<button type="button" onclick="self.close();">닫기</button>
 </div>
 </form>

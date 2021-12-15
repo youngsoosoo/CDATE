@@ -26,9 +26,9 @@
 		//파라미터
 		MultipartRequest mr = new MultipartRequest(request, real, max, "utf-8",	new DefaultFileRenamePolicy());
 			
-		String boardtitle = mr.getParameter("boardtitle");
 		String boardcontent = mr.getParameter("boardcontent");
 		String filename = mr.getOriginalFileName("boardimg");
+		String filenameplus = mr.getOriginalFileName("boardimgplus");
 		File file = new File(real+"/"+filename);
 		
 		
@@ -63,11 +63,11 @@
 		board board = new board();
 			if(rs.next()) {
 				board.setBoardid(rs.getInt(1));
-				board.setBoardtitle(rs.getString(2));
-				board.setId(rs.getString(3));
-				board.setBoarddate(rs.getString(4));
-				board.setBoardcontent(rs.getString(5));
-				board.setBoardimg(rs.getString(6));
+				board.setId(rs.getString(2));
+				board.setBoardimg(rs.getString(3));
+				board.setBoardimgplus(rs.getString(4));
+				board.setBoarddate(rs.getString(5));
+				board.setBoardcontent(rs.getString(6));
 			}
 		if(!USERID.equals(board.getId())){
 			PrintWriter script = response.getWriter();
@@ -77,8 +77,7 @@
 			script.println("</script>");
 		} else{
 			// 입력이 안 됐거나 빈 값이 있는지 체크한다
-			if(mr.getParameter("boardtitle") == null || mr.getParameter("boardcontent") == null
-				|| mr.getParameter("boardtitle").equals("") || mr.getParameter("boardcontent").equals("")){
+			if(mr.getParameter("boardcontent") == null|| mr.getParameter("boardcontent").equals("")){
 				PrintWriter script = response.getWriter();
 				script.println("<script>");
 				script.println("alert('입력이 안 된 사항이 있습니다')");
@@ -86,7 +85,7 @@
 				script.println("</script>");
 			}else{
 				// 정상적으로 입력이 되었다면 글 수정 로직을 수행한다
-				String sql1 = "update board set boardtitle = '"+boardtitle+"', boardcontent = '"+boardcontent+"', boardimg = '"+filename+"' where boardid = '"+boardID+"'";
+				String sql1 = "update board set boardimg = '"+filename+"', boardimgplus = '"+filenameplus+"', boardcontent = '"+boardcontent+"' where boardid = '"+boardID+"'";
 				pstmt = conn.prepareStatement(sql1);
 				int result = pstmt.executeUpdate(sql1);
 				if(result == 1){

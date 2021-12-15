@@ -27,9 +27,6 @@
 </form>
 </div>
 <div id="map" style="width:100%;height:700px;"></div>  
-<p>
-    <em>지도를 마우스로 클릭하면 선 그리기가 시작되고<br>오른쪽 마우스를 클릭하면 선 그리기가 종료됩니다</em>
-</p>
 
 
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=14d0355f8e5b04f2089caf762e49cfab&libraries=services"></script>
@@ -113,17 +110,17 @@ kakao.maps.event.addListener(map, 'click', function(mouseEvent) {
         clickLine = new kakao.maps.Polyline({
             map: map, // 선을 표시할 지도입니다 
             path: [clickPosition], // 선을 구성하는 좌표 배열입니다 클릭한 위치를 넣어줍니다
-            strokeWeight: 0, // 선의 두께입니다 
+            strokeWeight: 1, // 선의 두께입니다 
             strokeColor: '#db4040', // 선의 색깔입니다
-            strokeOpacity: 1, // 선의 불투명도입니다 0에서 1 사이값이며 0에 가까울수록 투명합니다
+            strokeOpacity: 0.3, // 선의 불투명도입니다 0에서 1 사이값이며 0에 가까울수록 투명합니다
             strokeStyle: 'solid' // 선의 스타일입니다
         });
         
         // 선이 그려지고 있을 때 마우스 움직임에 따라 선이 그려질 위치를 표시할 선을 생성합니다
         moveLine = new kakao.maps.Polyline({
-            strokeWeight: 0, // 선의 두께입니다 
+            strokeWeight: 1, // 선의 두께입니다 
             strokeColor: '#db4040', // 선의 색깔입니다
-            strokeOpacity: 0.5, // 선의 불투명도입니다 0에서 1 사이값이며 0에 가까울수록 투명합니다
+            strokeOpacity: 0.3, // 선의 불투명도입니다 0에서 1 사이값이며 0에 가까울수록 투명합니다
             strokeStyle: 'solid' // 선의 스타일입니다    
         });
     

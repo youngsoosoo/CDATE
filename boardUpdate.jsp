@@ -43,11 +43,11 @@
 		board board = new board();
 			if(rs.next()) {
 				board.setBoardid(rs.getInt(1));
-				board.setBoardtitle(rs.getString(2));
-				board.setId(rs.getString(3));
-				board.setBoarddate(rs.getString(4));
-				board.setBoardcontent(rs.getString(5));
-				board.setBoardimg(rs.getString(6));
+				board.setId(rs.getString(2));
+				board.setBoardimg(rs.getString(3));
+				board.setBoardimgplus(rs.getString(4));
+				board.setBoarddate(rs.getString(5));
+				board.setBoardcontent(rs.getString(6));
 			}
 		if(!USERID.equals(board.getId())){
 			PrintWriter script = response.getWriter();

@@ -6,6 +6,16 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
+	input[type=submit]{
+        background-color: #55d01f;
+        border:none;
+        color:white;
+        border-radius: 5px;
+        width:100%;
+        height:5%;
+        font-size: 10pt;
+        
+    }
 	body {
 		font-size:9pt;
 		font-family:맑은 고딕;
@@ -16,7 +26,7 @@
 		border-collapse:collapse; /* 셀 간격을 지움 */
 	}
 	th, td {
-		border:1px solid #cccccc;
+		border:1px solid #55d01f;
 		padding:5px;
 	}
 	caption {

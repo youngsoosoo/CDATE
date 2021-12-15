@@ -6,18 +6,48 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style type="text/css">
-#tabmenu {margin:0;  height:30px; border-bottom:1px solid #55d01f; font:14px;}
-#tabmenu li {margin:0; padding:0; display:block; float:left; list-style-type:none; width:150px; height:30px; text-align:center;}
-#tabmenu a {float:left; line-height:14px; width:150px; height:26px; text-decoration:none;font:bold 14px; color:#34900b;}
-#tabmenu a .move, #tabmenu a:hover {border-bottom:4px solid #34900b; color:#34900b;}
-#tabmenu a:hover {color:#696;}
+html {
+  height: 100%;
+}
+ 
+nav {
+  margin: 0 auto;
+}
+ 
+nav ul {
+  text-align: center;
+}
+ 
+nav ul li {
+  display: inline-block;
+}
+ 
+nav ul li a {
+  padding: 18px; 
+  text-transform:uppercase;
+  color: #55d01f;
+  font-size: 30px;
+  text-decoration: none;
+  display: block;
+}
+ 
+nav ul li a:hover {
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3), inset 0 0 1px rgba(255, 255, 255, 0.3);
+  color:#55d01f;
+}
+
+
 </style>
 </head>
 
 <body>
-<ul id ="tabmenu">
-	<li><a href="Main.jsp" class="move">HOME</a></li>
-	<li><a href="login.jsp">로그인</a></li>
-</ul>
+<nav>
+	<ul>
+		<li>
+			<a href="Main.jsp" class="move" >COS</a>
+		</li>
+	</ul>
+</nav>
+<hr>
 </body>
 </html>

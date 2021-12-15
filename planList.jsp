@@ -105,12 +105,24 @@ function fn_deDay(v){
 		border-collapse:collapse;
 	}
 	th, td{
-		border:1px solid #cccccc;
-		width:30px;
-		height:25px;
-		text-align:center;
-		font-size:15px;
+		font-weight: bold;
+  		color: #333;
+  		min-height: 130px;
+  		padding: 16px 20px;
+  		border-radius: 10px;
+  		border: 1px solid #55d01f;
+  		text-align:center;
 	}
+	input[type=button]{
+        background-color: #55d01f;
+        border:none;
+        color:white;
+        border-radius: 5px;
+        width:100%;
+        height:5%;
+        font-size: 10pt;
+        
+    }
 	caption{
 		margin-bottom:10px;
 		font-size:15px;
@@ -136,9 +148,9 @@ function fn_deDay(v){
 	<br><br><br><br><br><br><br><br>	
 	<table width="500px" align="center" border="0">
 		<tr>
-    		<td style=""><button type="button" onclick="location='planList.jsp?year=<%=b_y %>&month=<%=b_m %>'"> 이전 </button></td>
+    		<td style=""><input type="button" onclick="location='planList.jsp?year=<%=b_y %>&month=<%=b_m %>'" value="이전"></td>
     		<td><%=y %>년 <%=m + 1%>월</td>
-    		<td><button type="button" onclick="location='planList.jsp?year=<%=n_y %>&month=<%=n_m %>'"> 다음 </button></td>
+    		<td><input type="button" onclick="location='planList.jsp?year=<%=n_y %>&month=<%=n_m %>'" value="다음"></td>
     		<td><input type="button" value="일정등록" onclick="fn_Write()">&ensp;<input type="button" value="디데이" onclick="fn_Day()"></td>
     	</tr>
     			<%

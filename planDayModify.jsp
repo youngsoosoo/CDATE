@@ -61,6 +61,26 @@ if(rs.next()) {
 	}
 </script>
 <style>
+	button[type=button]{
+        background-color: #55d01f;
+        border:none;
+        color:white;
+        border-radius: 5px;
+        width:100%;
+        height:5%;
+        font-size: 10pt;
+        
+    }
+    input[type=submit]{
+        background-color: #55d01f;
+        border:none;
+        color:white;
+        border-radius: 5px;
+        width:100%;
+        height:5%;
+        font-size: 10pt;
+        
+    }
 	body {
 		font-size:9pt;
 		font-family:맑은 고딕;
@@ -71,7 +91,7 @@ if(rs.next()) {
 		border-collapse:collapse; /* 셀 간격을 지움 */
 	}
 	th, td {
-		border:1px solid #cccccc;
+		border:1px solid #55d01f;
 		padding:5px;
 	}
 	caption {
@@ -86,22 +106,22 @@ if(rs.next()) {
 	}
 </style>
 <body>
-<form name="frm" method="post" action="planDayModifySave.jsp">
-<input type="hidden" name="ddayname" value="<%=dayname%>">
+<form action="planDayModifySave.jsp">
 <table>
 	<caption>디데이 수정</caption>
 		<tr>
 			<th width="20%">디데이 명</th>
-			<td width="80"><input type="text" name="ddayname" id="ddayname" value="<%=dayname %>" style="width:98%"></td>
+			<td width="80"><input type="hidden" name="ddayname" value="<%=dayname %>" style="width:98%"><%=dayname %></td>
 		</tr>
 		<tr>
 			<th>남은 일수</th>
-			<td><input type="date" name="date" style="width:98%"></td>
+			<td><input type="date" name="date" value="<%=day %>" style="width:98%"></td>
 		</tr>
 </table>
 <div class="div1">
-	<button type="submit" onclick="fn_ddaysubmit(); return false;">저장</button>
-	<button type="button" onclick="self.close();">닫기</button>
+	<input type="submit" value="저장">
+	<br><br>
+	<button type="button" onclick="self.close();"> 닫기 </button>
 </div>
 </form>
 </body>

@@ -6,46 +6,64 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
-	h1{text-align:center;}
-	h2{text-align:center;}
-	#test_btn1{
-		border-top-left-radius: 5px;
-		border-bottom-left-radius:5px;
-		margin-right:4px;
-	}
-	#btn_group button{
-		border:1px solid skyblue;
-		bakground-color:rgba(0, 0, 0, 0);
-		color: skyblue;
-		padding: 5px;
-	}
-	#btn_group button:hover{
-		color:white;
-		background-color:skyblie
-	}
+	h2{text-align:center; color: #55d01f;}
+	header{
+        display:flex;
+        justify-content: center;
+    }
+    form{
+        padding:10px;
+    }
+    .input-box{
+    	display:flex;
+        justify-content: center;
+        position:relative;
+        margin:0 auto;
+        
+    }
+    .input-box > input{
+        background:transparent;
+        border:none;
+        border-bottom: solid 1px #55d01f;
+        padding:20px 0px 5px 0px;
+        font-size:14pt;
+        width:30%;
+     }
+     input[type=submit]{
+        background-color: #55d01f;
+        border:none;
+        color:white;
+        border-radius: 5px;
+        width:30%;
+        height:35px;
+        font-size: 14pt;
+        margin-top:100px;
+    }
+    #forgot{
+        text-align: right;
+        font-size:12pt;
+        color:rgb(164, 164, 164);
+        margin:10px 0px;
+    }
 </style>
 </head>
 <body>
 	<jsp:include page="/Header.jsp" flush="false"/>
-	<p align="center">
-	<table width="300" height = "100%" border="0" cellpadding="0" cellspacing="0" align="center">
 		<form action="loginJoin.jsp" method="post">
 		<br><br><br><br><br><br><br><br>
-		<tr>
-        	<td colspan="2" align=center height=40><FONT SIZE="2" COLOR="#34900b"><B>로그인</B></FONT></td>
-        </tr>
-        <tr>
-            <td align=right WIDTH=80 height=30 ><b><FONT SIZE="2" color='#34900b'>아이디&nbsp;</FONT>  </b></td>
-            <td><input name="userId" type="text"></td>
-        </tr>
-    	<tr>
-            <td align=right height=30><b><font size=2 color='#34900b'>비밀번호&nbsp;</font></b></td>
-            <td><input name="userPassword" type="password" border= "1px #34900b solid"></td>
-       	</tr>
-        <tr>
-            <td align=center colspan=2><BR><center><input type="submit" value="로그인" style='background-color: #F4F4F4; border: 1px #34900b solid; width: 109px; height: 25px'> <input type=reset style='background-color: #F4F4F4; border: 1px #34900b solid; width: 109px; height: 25px'></td>
-        </tr>
-	</table>
-	</p>
+		<header>
+            <h2>로그인</h2>
+        </header>
+			<div class="input-box">
+                <input id="username" type="text" name="userId" placeholder="아이디">
+            </div>
+
+            <div class="input-box">
+                <input id="password" type="password" name="userPassword" placeholder="비밀번호">
+            </div>
+            <div style="text-align: center;">
+            	<input type="submit" value="로그인">
+            </div>
+		</form>
 </body>
 </html>
